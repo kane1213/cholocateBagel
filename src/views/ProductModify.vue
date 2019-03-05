@@ -14,7 +14,7 @@
         <template slot-scope="scope">
           <!-- <img :src="scope.image.split(',')[0]" /> -->
           <div class="scope-image" v-if="scope.row.image"
-            :style="{backgroundImage: 'url(http://kane1213.synology.me/maysbagel/images/' + scope.row.image.split(',')[0] + ')'}"
+            :style="{backgroundImage: 'url(' + appUrl + 'images/' + scope.row.image.split(',')[0] + ')'}"
           ></div>
         </template>
       </el-table-column>
@@ -103,11 +103,12 @@ export default {
       hasUpload: false,
       fileReader: '',
       tableData: [],
+      appUrl: process.env.VUE_APP_URL,
     }
   },
   created() {
 
-    this.$http.get("http://kane1213.synology.me/maysbagel/api/product/?items&page=1").then((res)=>{
+    this.$http.get(process.env.VUE_APP_URL + "api/product/?items&page=1").then((res)=>{
       if(res.data.State) {
         this.tableData = res.data.Data.content;
       }
@@ -151,7 +152,7 @@ export default {
         this.imageUrl = "";
       }
       this.$store.dispatch('ACT_LOADING', true);
-      this.$http.post("http://kane1213.synology.me/maysbagel/api/product/", formData
+      this.$http.post(process.env.VUE_APP_URL + "api/product/", formData
       ).then((res)=>{
         console.log(res);
       }).finally(()=>{
@@ -247,7 +248,7 @@ export default {
         let formData = new FormData();
         formData.append('delete', $item.id);
         formData.append('image', $item.image);
-        this.$http.post("http://kane1213.synology.me/maysbagel/api/product/", formData).then((res)=>{
+        this.$http.post( env.process.VUE_APP_URL + "api/product/", formData).then((res)=>{
           this.$message({
             type: 'success',
             message: '删除成功!'
@@ -276,7 +277,7 @@ export default {
 
         if($k == "image") {
           [this.iconUrl, this.imageUrl] = $item[$k].split(',').map(
-            (url)=> 'http://kane1213.synology.me/maysbagel/images/'+url
+            (url)=> this.process.env.VUE_APP_URL + 'images/'+url
           );
         }
       }

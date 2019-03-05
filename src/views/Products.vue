@@ -4,7 +4,7 @@
       <mt-index-section v-for="(prds, k) in items" :key="k" :index="keyName[k].name">
         <img class="section-icon position-absolute" :src="keyName[k].img" />
         <mt-cell v-for="p in prds" :title="p.title" :label="p.content" :key="p.id" :to="'/detail/' + p.id" :is-link="true">
-          <img slot="icon" :src="'http://kane1213.synology.me/maysbagel/images/' + p.image.split(',')[0]" width="24" height="24" />
+          <img slot="icon" :src="appUrl + 'images/' + p.image.split(',')[0]" width="24" height="24" />
         </mt-cell>
       </mt-index-section>
     </mt-index-list>
@@ -25,14 +25,14 @@ export default {
         1: {name: "麵包", img: require("@/assets/images/icons/icon1.png")},
         2: {name: "蛋糕", img: require("@/assets/images/icons/icon2.png")},
         3: {name: "飲品", img: require("@/assets/images/icons/icon3.png")},
-      }
+      },
+      appUrl: process.env.VUE_APP_URL,
     }
   },
   created() {
-    this.$http.get("http://kane1213.synology.me/maysbagel/api/product/?items&page=1").then((res)=>{
+    this.$http.get(process.env.VUE_APP_URL + "api/product/?items&page=1").then((res)=>{
       if(res.data.State) {
         this.items = _.groupBy(res.data.Data.content, "kind");
-        console.log(this.items);
       }
     });
   },
