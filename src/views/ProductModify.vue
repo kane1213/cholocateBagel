@@ -4,7 +4,7 @@
     <el-button type="text" @click="addItem">新增</el-button>
 
 
-    <el-table :data="tableData" style="width: 100%">
+    <el-table :data="tableData" style="width: 100%; margin-bottom: 25px;">
       <el-table-column label="ID" prop="id" width="40"></el-table-column>
 
       <el-table-column width="80">
@@ -32,6 +32,16 @@
       </el-table-column>
     </el-table>
     
+    <el-pagination
+      @current-change="handleCurrentChange"
+      background
+      layout="prev, pager, next"
+      :total="pageable.total"
+      :page-size="5"
+      :current-page="pageable.current"
+      >
+    </el-pagination>
+
     <el-dialog
       :title="workType"
       :visible.sync="dialogVisible"
@@ -72,7 +82,7 @@
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="cancelEdit">取 消</el-button>
-        <el-button type="primary" @click="onSubmit">确 定</el-button>
+        <el-button type="primary" @click="onSubmit">確 定</el-button>
       </span>
       
     </el-dialog>
@@ -104,15 +114,15 @@ export default {
       fileReader: '',
       tableData: [],
       appUrl: process.env.VUE_APP_URL,
+      pageable: {
+        current: 1,
+        pageSize: 5,
+        total: 0,
+      }
     }
   },
   created() {
-
-    this.$http.get(process.env.VUE_APP_URL + "api/product/?items&page=1").then((res)=>{
-      if(res.data.State) {
-        this.tableData = res.data.Data.content;
-      }
-    });
+    this.fetchItemsData();
   },
   computed: {
     workType() {
@@ -126,6 +136,24 @@ export default {
     }
   },
   methods: {
+    handleCurrentChange($page) {
+      this.pageable.current = $page;
+      this.fetchItemsData();
+    },
+    fetchItemsData() {
+      this.$store.dispatch('ACT_LOADING', true);
+      this.$http.get(process.env.VUE_APP_URL + "api/product/?items&page=" + this.pageable.current).then((res)=>{
+        if(res.data.State) {
+          this.pageable.total = res.data.Data.total;
+          this.tableData = res.data.Data.content;
+        }
+      }).finally(()=>{
+        setTimeout(()=>{
+          this.$store.dispatch('ACT_LOADING', false);
+        },200);
+        
+      });
+    },
     onSubmit() {
       this.dialogVisible = false;
       var formData = new FormData(JSON.stringify(this.form));
@@ -154,7 +182,8 @@ export default {
       this.$store.dispatch('ACT_LOADING', true);
       this.$http.post(process.env.VUE_APP_URL + "api/product/", formData
       ).then((res)=>{
-        console.log(res);
+        // console.log(res);
+        this.fetchItemsData();
       }).finally(()=>{
         this.$store.dispatch('ACT_LOADING', false);
       });
@@ -277,7 +306,7 @@ export default {
 
         if($k == "image") {
           [this.iconUrl, this.imageUrl] = $item[$k].split(',').map(
-            (url)=> this.process.env.VUE_APP_URL + 'images/'+url
+            (url)=> process.env.VUE_APP_URL + 'images/'+url
           );
         }
       }
@@ -329,4 +358,6 @@ export default {
   background-size: cover
   border: 1px solid #888
   border-radius: 5px
+.el-pagination
+  text-align: center
 </style>

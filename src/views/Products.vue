@@ -30,7 +30,7 @@ export default {
     }
   },
   created() {
-    this.$http.get(process.env.VUE_APP_URL + "api/product/?items&page=1").then((res)=>{
+    this.$http.get(process.env.VUE_APP_URL + "api/product/?items").then((res)=>{
       if(res.data.State) {
         this.items = _.groupBy(res.data.Data.content, "kind");
       }
