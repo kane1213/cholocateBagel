@@ -35,4 +35,9 @@ export default {
     .el-carousel__container
       flex: 1
       height: 100%
+  .el-carousel__item
+    background-color: transparent
+    background-repeat: no-repeat
+    background-position: center center
+    background-size: contain
 </style>
