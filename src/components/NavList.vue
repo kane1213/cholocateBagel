@@ -1,20 +1,15 @@
 <template>
-    <nav :class="{'nor': $route.name!='home'}" class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="dsad">
+        <mt-header fixed title="May's Bagels"></mt-header>
+    </div>
+
+    <!-- <nav :class="{'nor': $route.name!='home'}" class="navbar navbar-expand-lg navbar-light fixed-top">
         <button v-if="$route.name!='home'" @click.stop="$router.go(-1)">back</button>
         <a class="navbar-brand text-white" href="#">May's Bagel Shop
-        <!-- <img src="@/assets/tb.png" width="30" height="30" alt=""> -->
+        
         </a>
     
-        <!-- <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button> -->
+       
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item" v-for="r in $router.options.routes">
@@ -22,7 +17,7 @@
                 </li>
             </ul>
         </div>
-    </nav>
+    </nav> -->
 </template>
 
 <script>
@@ -35,6 +30,9 @@ export default {
 </script>
 
 <style lang="sass">
+    .mint-header.is-fixed
+        background-color: rgba(0,0,0,.3)
+        z-index: 20 !important
     ul.navbar-nav
         display: flex
         padding: 0
@@ -44,5 +42,4 @@ export default {
             margin: 0 15px 0 0
             a
                 text-decoration: none
-
 </style>

@@ -182,13 +182,14 @@ export default {
       this.$store.dispatch('ACT_LOADING', true);
       this.$http.post(process.env.VUE_APP_URL + "api/product/", formData
       ).then((res)=>{
-        // console.log(res);
+        console.log(res);
         this.fetchItemsData();
       }).finally(()=>{
         this.$store.dispatch('ACT_LOADING', false);
       });
     },
     handleAvatarSuccess(res, file) {
+      console.log(res, file);
       // this.imageUrl = URL.createObjectURL(file.raw);
     },
     beforeAvatarUpload(file) {
@@ -329,35 +330,35 @@ export default {
 }
 </script>
 <style lang="sass">
-.avatar-uploader
-  .el-upload
-    border: 1px dashed #d9d9d9
-    border-radius: 6px
-    cursor: pointer
-    position: relative
-    overflow: hidden
-  .el-upload:hover
-    border-color: #409EFF
-  .avatar-uploader-icon
-    font-size: 28px
-    color: #8c939d
-    width: 90px
-    height: 90px
-    line-height: 90px
+  .avatar-uploader
+    .el-upload
+      border: 1px dashed #d9d9d9
+      border-radius: 6px
+      cursor: pointer
+      position: relative
+      overflow: hidden
+    .el-upload:hover
+      border-color: #409EFF
+    .avatar-uploader-icon
+      font-size: 28px
+      color: #8c939d
+      width: 90px
+      height: 90px
+      line-height: 90px
+      text-align: center
+    .avatar
+      width: 90px
+      height: 90px
+      display: block
+  .scope-image
+    width: 35px
+    height: 35px
+    background-repeat: no-repeat
+    background-color: #efefef
+    background-position: center center
+    background-size: cover
+    border: 1px solid #888
+    border-radius: 5px
+  .el-pagination
     text-align: center
-  .avatar
-    width: 90px
-    height: 90px
-    display: block
-.scope-image
-  width: 35px
-  height: 35px
-  background-repeat: no-repeat
-  background-color: #efefef
-  background-position: center center
-  background-size: cover
-  border: 1px solid #888
-  border-radius: 5px
-.el-pagination
-  text-align: center
 </style>
