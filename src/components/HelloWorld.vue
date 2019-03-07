@@ -39,5 +39,5 @@ export default {
     background-color: transparent
     background-repeat: no-repeat
     background-position: center center
-    background-size: contain
+    background-size: cover
 </style>
