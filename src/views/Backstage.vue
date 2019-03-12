@@ -6,10 +6,10 @@
 <script>
 export default {
   name: "BackStage",
-  data() {
-    return {
+  // data() {
+  //   return {
       
-    }
-  }
+  //   }
+  // }
 };
 </script>

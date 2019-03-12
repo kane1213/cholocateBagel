@@ -30,9 +30,13 @@ export default {
     }
   },
   created() {
-    this.$http.get(process.env.VUE_APP_URL + "api/product/?items").then((res)=>{
+    let _kind = null;
+    if(this.$route.params) {
+      _kind = this.$route.params.kind;
+    }
+    this.$http.get(process.env.VUE_APP_URL + "api/product/?items" + (_kind?('&kind='+_kind):'')  ).then((res)=>{
       if(res.data.State) {
-        this.items = _.groupBy(res.data.Data.content, "kind");
+        this.items = window._.groupBy(res.data.Data.content, "kind");
       }
     });
   },

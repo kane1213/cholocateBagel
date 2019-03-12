@@ -1,9 +1,6 @@
 <template>
   <div class="product pt-5 container">
-
     <el-button type="text" @click="addItem">新增</el-button>
-
-
     <el-table :data="tableData" style="width: 100%; margin-bottom: 25px;">
       <el-table-column label="ID" prop="id" width="40"></el-table-column>
 

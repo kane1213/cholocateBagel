@@ -10,6 +10,8 @@
 </template>
 <script>
 import NavList from "@/components/NavList.vue";
+
+
 export default {
   name: "app",
   data() {
@@ -18,7 +20,7 @@ export default {
     }
   },
   components: {
-    NavList
+    NavList,
   },
   computed: {
     isLoading() {
