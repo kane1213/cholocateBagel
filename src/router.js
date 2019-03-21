@@ -34,6 +34,12 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "./views/Products.vue")
     },
     {
+      path: "/detail/:id",
+      name: "detail",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./views/Detail.vue")
+    },
+    {
       path: "/backstage",
       // name: "backstage",
       component: Backstage,
